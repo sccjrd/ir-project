@@ -1,32 +1,20 @@
-# IR_Project
-Information Retrieval - IKEA hacks 
+## Information Retrieval 2025
+
+Project 5 - IKEA hacks
 
 Theodor Vavassori, Francesc Jordi Sacco
 
-# HOW TO RUN SPIDERS
+### How to run the crawler
 
-- Test IKEA Hackers 
-scrapy crawl ikea -o data/ikea_hacks.json -s CLOSESPIDER_ITEMCOUNT=10
+python crawler/scraper/run_crawlers.py
 
-- Test Tosize 
-scrapy crawl tosize -o data/tosize_hacks.json -s CLOSESPIDER_ITEMCOUNT=10
+### How does Sorl work
 
-- Test Love Property
-scrapy crawl loveproperty -o data/loveproperty_hacks.json -s CLOSESPIDER_ITEMCOUNT=10
+### How to install and run all
 
-- IKEA Hackers - get 100 items
-scrapy crawl ikea -o data/ikea_hacks.json -s CLOSESPIDER_ITEMCOUNT=100
+Just follow this guide here:
 
-- Tosize - get 100 items
-scrapy crawl tosize -o data/tosize_hacks.json -s CLOSESPIDER_ITEMCOUNT=100
+[https://www.youtube.com/watch?v=E4WlUXrJgy4](https://www.youtube.com/watch?v=E4WlUXrJgy4)
 
-- Love Property - get 100 items
-scrapy crawl loveproperty -o data/loveproperty_hacks.json -s CLOSESPIDER_ITEMCOUNT=100
+### Total items:
 
-# Total items in data repo:
-- ikea_hacks.json = 203 items
-- tosize_hacks.json = 20 items
-- loveproperty_hacks.json = 42 items
-
-# Solr
-- The files that deal with Solr have been AI generated to check for Solr funcioning and well-behavior of the indexing and retrieval system
