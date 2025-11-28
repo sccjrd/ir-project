@@ -1,5 +1,6 @@
 import { Paper, Box, Typography, Link as MuiLink } from "@mui/material";
 import SimilarHacksAccordion from "./SimilarHacksAccordion";
+import SearchTags from "./SearchTags";
 
 /** Highlight occurrences of `query` inside `text` using <mark>. */
 function highlightText(text, query) {
@@ -99,7 +100,7 @@ function SearchResultCard({ result, query }) {
         >
           {highlightText(result.title || "Untitled hack", query)}
         </Typography>
-
+        {/* {console.log(result)} */}
         {/* Snippet */}
         <Typography
           variant="body2"
@@ -120,6 +121,9 @@ function SearchResultCard({ result, query }) {
           {result.author && `${result.author} · `}
           {dateStr}
         </Typography>
+
+        {/* Search query tags */}
+        <SearchTags categories={result.categories} />
 
         {/* Similar hacks accordion */}
         <SimilarHacksAccordion hackId={result.id} />
