@@ -135,7 +135,7 @@ class LovePropertySpider(scrapy.Spider):
 
                 scraped_count += 1
                 self.logger.info(
-                    f"[loveproperty] ✓ Scraped gallery item: {title[:60]}"
+                    f"[loveproperty] - Scraped gallery item: {title[:60]}"
                 )
                 yield item
 
@@ -208,7 +208,7 @@ class LovePropertySpider(scrapy.Spider):
 
         if title and not self.is_junk_title(title):
             self.logger.info(
-                f"[loveproperty] ✓ Scraped single article: {title[:60]}"
+                f"[loveproperty] - Scraped single article: {title[:60]}"
             )
             return item
 

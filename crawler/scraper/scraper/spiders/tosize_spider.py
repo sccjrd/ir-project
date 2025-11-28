@@ -114,7 +114,7 @@ class TosizeSpider(scrapy.Spider):
         item["excerpt"] = excerpt or title
 
         if title:
-            self.logger.info(f"[tosize] ✓ Scraped: {title[:60]}")
+            self.logger.info(f"[tosize] - Scraped: {title[:60]}")
             yield item
         else:
             self.logger.warning(f"[tosize] Skipped (no title): {response.url}")

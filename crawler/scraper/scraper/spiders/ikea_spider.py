@@ -164,7 +164,7 @@ class IkeaSpider(scrapy.Spider):
         item["excerpt"] = excerpt
 
         if title:
-            self.logger.info(f"✓ Scraped: {title[:60]}")
+            self.logger.info(f" Scraped: {title[:60]}")
             yield item
         else:
             self.logger.warning(f"Skipped: no title for {response.url}")

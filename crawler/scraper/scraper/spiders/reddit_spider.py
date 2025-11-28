@@ -99,12 +99,20 @@ class RedditIkeaHacksSpider(scrapy.Spider):
                 excerpt = item["title"]
             item["excerpt"] = excerpt
 
-            if item["title"]:
+            score = item.get("score", 0) 
+            removed = item.get("removed_by_category")
+
+            if item["title"] and removed is None and score >= 1:
                 self.post_count += 1
                 self.logger.info(
-                    f"[reddit] ✓ {item['title'][:60]} (total={self.post_count})"
+                    f"[reddit] - {item['title'][:60]} (total={self.post_count})"
                 )
                 yield item
+            else:
+                self.logger.info(
+                    f"[reddit] - Skipping post "
+                    f"(title={bool(item.get('title'))}, removed_by_category={removed}, score={score})"
+                )    
 
         # Pagination with "after" cursor
         after = data.get("data", {}).get("after")
