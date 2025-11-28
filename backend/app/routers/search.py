@@ -30,20 +30,23 @@ def search_hacks(
 
     search_pipeline = [
         {
-            "$search": {
-                "index": index_name,
+        "$search": {
+            "index": index_name,
+            "compound": {
+            "must": [
+                {
                 "text": {
                     "query": query,
-                    "path": {
-                        "wildcard": "*"
-                    },
-                    "fuzzy": {
-                        "maxEdits": 2,
-                        "prefixLength": 0,
-                        "maxExpansions": 4
-                    },
-                },
+                    "path": ["title", "content"],
+                    # "fuzzy": {"maxEdits": 1}  # optional
+                }
+                }
+            ],
+            "should": [
+                { "text": { "query": query, "path": ["categories", "tags"] } }
+            ]
             }
+        }
         },
         {
             "$project": {
@@ -74,16 +77,19 @@ def search_hacks(
         {
             "$searchMeta": {
                 "index": index_name,
-                "text": {
-                    "query": query,
-                    "path": {
-                        "wildcard": "*"
-                    },
-                    "fuzzy": {
-                        "maxEdits": 2,
-                        "prefixLength": 0,
-                        "maxExpansions": 4
-                    },
+                "compound": {
+                "must": [
+                    {
+                    "text": {
+                        "query": query,
+                        "path": ["title", "content"],
+                        # "fuzzy": {"maxEdits": 1}  # optional
+                    }
+                    }
+                ],
+                "should": [
+                    { "text": { "query": query, "path": ["categories", "tags"] } }
+                ]
                 },
                 "count": {
                     "type": "total",
