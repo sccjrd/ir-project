@@ -5,7 +5,7 @@ import math
 
 from app.models import Hack, SearchResult
 from app.services import mongo
-from app.utils import mongo_doc_to_hack  
+from app.utils import mongo_doc_to_hack
 
 router = APIRouter(prefix="/api/search", tags=["search"])
 
@@ -15,7 +15,7 @@ def search_hacks(
     query: str = Query(..., description="Search term"),
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=50),
-    db = Depends(mongo.get_db),
+    db=Depends(mongo.get_db),
 ):
     """
     Search API to query the hacks_all collection using MongoDB Atlas Search.
@@ -30,23 +30,24 @@ def search_hacks(
 
     search_pipeline = [
         {
-        "$search": {
-            "index": index_name,
-            "compound": {
-            "must": [
-                {
-                "text": {
-                    "query": query,
-                    "path": ["title", "content"],
-                    "fuzzy": {"maxEdits": 1}
+            "$search": {
+                "index": index_name,
+                "compound": {
+                    "must": [
+                        {
+                            "text": {
+                                "query": query,
+                                "path": ["title", "content"],
+                                "fuzzy": {"maxEdits": 1}
+                            }
+                        }
+                    ],
+                    "should": [
+                        {"text": {"query": query, "path": [
+                            "categories", "tags"]}}
+                    ]
                 }
-                }
-            ],
-            "should": [
-                { "text": { "query": query, "path": ["categories", "tags"] } }
-            ]
             }
-        }
         },
         {
             "$project": {
@@ -78,18 +79,19 @@ def search_hacks(
             "$searchMeta": {
                 "index": index_name,
                 "compound": {
-                "must": [
-                    {
-                    "text": {
-                        "query": query,
-                        "path": ["title", "content"],
-                        "fuzzy": {"maxEdits": 1} 
-                    }
-                    }
-                ],
-                "should": [
-                    { "text": { "query": query, "path": ["categories", "tags"] } }
-                ]
+                    "must": [
+                        {
+                            "text": {
+                                "query": query,
+                                "path": ["title", "content"],
+                                "fuzzy": {"maxEdits": 1}
+                            }
+                        }
+                    ],
+                    "should": [
+                        {"text": {"query": query, "path": [
+                            "categories", "tags"]}}
+                    ]
                 },
                 "count": {
                     "type": "total",
@@ -119,7 +121,7 @@ def search_hacks(
 def get_similar_hacks(
     hack_id: str,
     limit: int = Query(6, ge=1, le=20),
-    db = Depends(mongo.get_db),
+    db=Depends(mongo.get_db),
 ):
     collection = db["hacks_all"]
     index_name = mongo.MONGO_SEARCH_INDEX
@@ -174,3 +176,7 @@ def get_similar_hacks(
     docs = list(collection.aggregate(pipeline))
     return [mongo_doc_to_hack(doc) for doc in docs]
 
+
+# Search Index:
+
+# { "mappings": { "dynamic": false, "fields": { "title": { "type": "string", "analyzer": "lucene.english" }, "content": { "type": "string", "analyzer": "lucene.english" }, "excerpt": { "type": "string", "analyzer": "lucene.english" }, "author": { "type": "string" }, "url": { "type": "string" }, "source": { "type": "string" }, "categories": { "type": "string" }, "tags": { "type": "string" }, "image_url": { "type": "string" }, "date": { "type": "date" } } } }

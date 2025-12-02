@@ -22,7 +22,6 @@ db = client[MONGO_DB_NAME]
 def get_source_collections() -> List[str]:
     """
     Return all collections that start with 'hacks_' except 'hacks_all'.
-    Example: hacks_ikea, hacks_loveproperty, hacks_tosize, hacks_reddit
     """
     names = db.list_collection_names()
     return [
@@ -51,7 +50,7 @@ def build_hacks_all(drop_existing: bool = True):
     for coll_name in source_collections:
         coll = db[coll_name]
         # Derive a source name from the collection name (e.g. hacks_ikea -> ikea)
-        source_name = coll_name[len("hacks_") :]
+        source_name = coll_name[len("hacks_"):]
 
         count = coll.count_documents({})
         print(f"Processing {coll_name} (source='{source_name}', {count} docs)")
@@ -79,7 +78,8 @@ def build_hacks_all(drop_existing: bool = True):
                 total_inserted += 1
 
     print(f"Done. Total new docs inserted into hacks_all: {total_inserted}")
-    print(f"hacks_all now has {db['hacks_all'].count_documents({})} documents.")
+    print(
+        f"hacks_all now has {db['hacks_all'].count_documents({})} documents.")
 
 
 if __name__ == "__main__":
