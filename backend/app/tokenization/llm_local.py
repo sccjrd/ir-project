@@ -4,7 +4,7 @@ import requests
 from typing import List, Tuple
 
 from app.models import Hack
-from app.tokenization.config import IKEA_CATEGORIES
+from app.tokenization.config import IKEA_HACKS_CATEGORIES
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL_NAME = "llama3.2:3b"
@@ -18,7 +18,7 @@ You receive a post with:
 
 Your job:
 1. Choose 1–3 high-level categories from this allowed list ONLY:
-{", ".join(IKEA_CATEGORIES)}
+{", ".join(IKEA_HACKS_CATEGORIES)}
 
 2. Generate 3–5 tags:
    - short phrases
@@ -87,7 +87,7 @@ def tag_hack_with_llm(hack: Hack) -> Tuple[List[str], List[str]]:
 
     categories = [
         c for c in raw_categories
-        if isinstance(c, str) and c in IKEA_CATEGORIES
+        if isinstance(c, str) and c in IKEA_HACKS_CATEGORIES
     ]
 
     tags: List[str] = []

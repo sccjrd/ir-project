@@ -13,26 +13,16 @@ from app.tokenization.llm_local import tag_hack_with_llm
 
 def _iter_hacks_needing_tokens(limit: Optional[int] = None):
     """
-    Yield Mongo docs that don't have tags/categories yet.
-    Adjust the filter if you want to re-tag everything.
+    Yield Mongo
     """
     coll = get_collection(HACKS_COLLECTION_NAME)
 
-    query: Dict[str, Any] = {
-        "$or": [
-            {"tags": {"$exists": False}},
-            {"tags": {"$size": 0}},
-            {"categories": {"$exists": False}},
-            {"categories": {"$size": 0}},
-        ]
-    }
+    cursor = coll.find({})
 
-    cursor = coll.find(query)
     if limit is not None:
         cursor = cursor.limit(limit)
 
     for doc in cursor:
-        # Normalize relative image URLs so Pydantic accepts them as valid URLs
         image = doc.get("image_url")
         if isinstance(image, str) and image.startswith("/"):
             doc["image_url"] = urllib.parse.urljoin(
@@ -78,6 +68,6 @@ def run_tokenization(limit: Optional[int] = None) -> None:
         )
         processed += 1
         print(
-            f"[OK] {hack.id} | {hack.title[:60]!r} → {categories} | {len(tags)} tags")
+            f"[OK] {hack.id} | {hack.title[:60]!r} → {categories} | {len(tags)} tags | {tags}")
 
     print(f"Done. Updated {processed} hacks.")

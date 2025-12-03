@@ -1,17 +1,5 @@
 import os
 HACKS_COLLECTION_NAME = os.getenv("MONGO_COLLECTION_NAME")
 
-IKEA_CATEGORIES = [
-    "storage",
-    "kitchen",
-    "bedroom",
-    "living room",
-    "bathroom",
-    "office",
-    "kids",
-    "outdoor",
-    "lighting",
-    "decor",
-    "pets",
-    "workspace",
-]
+IKEA_HACKS_CATEGORIES = ['3D Printed', 'Accessories', 'Candle Stands', 'Clocks', 'Decoration', 'Hangers, Hat &amp; Coat Racks', 'Mirrors', 'Wall Décor', 'Art', 'Bedroom', 'Bedroom Storage', 'Dressing Table', 'Headboards', 'IKEA Bed and Bedroom Storage Hacks', 'Ikea Nightstand Hacks', 'Wardrobes', 'Business', 'Children', 'Beds', 'Changing Tables', 'Cribs', 'Desks &amp; Chairs', 'Highchairs', 'Storage Furniture', 'Toys &amp; Play', 'Craft', 'Designer', 'Dining', 'Dining Tables &amp; Chairs', 'IKEA Bar Cabinet and Bar Cart Hacks', 'Serving Pieces', 'Entryway', 'Fabrics', 'Bags', 'Clothes', 'Curtains', 'Rugs', 'IKEA Bathroom Hacks', 'Bathroom Accessories', 'Bathroom Storage', 'Laundry', 'Vanity', 'IKEA Living Room Hacks', 'Cabinets &amp; Sideboards', 'Coffee &amp; Side Tables', 'IKEA Bookshelf Hacks', 'Room Divider', 'Seating', 'Sofas &amp; Stools',
+                         'Kitchen', 'Cabinets', 'IKEA Cart Hacks', 'Ikea Kitchen Island Hacks', 'Pantry', 'Utensils', 'Work Tops', 'Landing', 'Console', 'Mudroom', 'Shoe Storage', 'Lighting', 'Ceiling', 'Floor Lamps', 'LEDs', 'Shades, Bases &amp; Cords', 'Table Lamps', 'Wall', 'Work Lamps', 'Media Storage', 'AV aids', 'Cable Management', 'DVD &amp; CD Storage', 'Gaming', 'IKEA TV and Entertainment Center Hacks', 'Stands', 'Tech &amp; Servers', 'Miscellaneous', 'Outdoor', 'Lounging', 'Outdoor Lighting', 'Plants', 'Pet Furniture', 'Cats', 'Critters', 'Dogs', 'Other Pets', 'Reptiles', 'Secondary Storage', 'Boxes &amp; Baskets', 'Equipment', 'Jewelry Holders', 'Organizers', 'Recycling', 'Shelves', 'Summer', 'Tools', 'Weekend project', 'Work Station', 'Chairs', 'Home Office', 'IKEA Desk Hacks', 'Monitor &amp; Laptop Stands', 'Music &amp; DJ', 'JULES']

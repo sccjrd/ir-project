@@ -1,5 +1,11 @@
 import argparse
 
+""""
+Takes care of starting the process by running thought terminal at the backend root
+python -m app.tokenization.cli 
+
+"""
+
 from app.tokenization.pipeline import run_tokenization
 
 
