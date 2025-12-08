@@ -1,6 +1,8 @@
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link, IconButton } from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
-function Footer() {
+function Footer({ toggleColorMode, mode }) {
   return (
     <Box
       component="footer"
@@ -10,8 +12,27 @@ function Footer() {
         textAlign: "center",
         borderTop: 1,
         borderColor: "divider",
+        position: "relative",
       }}
     >
+      {/* Dark mode toggle in top right of footer */}
+      <Box
+        sx={{
+          position: "absolute",
+          right: 16,
+          top: "50%",
+          transform: "translateY(-50%)",
+        }}
+      >
+        <IconButton
+          onClick={toggleColorMode}
+          color="inherit"
+          aria-label="toggle dark mode"
+        >
+          {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
+      </Box>
+
       <Typography
         variant="body2"
         color="text.secondary"
@@ -22,7 +43,7 @@ function Footer() {
           gap: 1,
         }}
       >
-        Built by Francesc Jordi Sacco & Theodor Vavassori -{"  "}
+        Built by Francesc Jordi Sacco & Theodor Vavassori -{" "}
         <Link
           href="https://github.com/sccjrd/ir-project"
           target="_blank"
@@ -30,7 +51,9 @@ function Footer() {
           sx={{ display: "inline-flex", alignItems: "center" }}
         >
           <img
-            src="./github-mark.svg"
+            src={
+              mode === "dark" ? "./github-mark-white.svg" : "./github-mark.svg"
+            }
             alt="GitHub repository"
             style={{ width: 20, height: 20 }}
           />
