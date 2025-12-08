@@ -12,6 +12,7 @@ import { DefinitionDialog, ErrorBanner } from "../../../shared/components";
 
 function SearchPage({ definitionOpen, setDefinitionOpen }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   // Text search hook
   const textSearch = useSearch(10);
@@ -45,6 +46,13 @@ function SearchPage({ definitionOpen, setDefinitionOpen }) {
     }
   }, [selectedCategory]);
 
+  // Watch for query changes and reset hasSearched when query is cleared
+  useEffect(() => {
+    if (!textSearch.query.trim()) {
+      setHasSearched(false);
+    }
+  }, [textSearch.query]);
+
   const handlePageChange = (_event, newPage) => {
     if (isCategoryMode) {
       categorySearch.goToPage(newPage);
@@ -62,11 +70,13 @@ function SearchPage({ definitionOpen, setDefinitionOpen }) {
   const handleTextSearch = () => {
     // Clear category and do text search
     setSelectedCategory(null);
+    setHasSearched(true);
     textSearch.search(1);
   };
 
   const handleClearCategory = () => {
     setSelectedCategory(null);
+    setHasSearched(false);
   };
 
   const showCategories =
@@ -119,6 +129,7 @@ function SearchPage({ definitionOpen, setDefinitionOpen }) {
         loading={loading}
         error={error}
         onCategorySearch={handleCategorySearch}
+        hasSearched={hasSearched || isCategoryMode}
       />
 
       <PaginationBar
